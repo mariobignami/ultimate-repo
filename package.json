@@ -6,7 +6,8 @@
   "main": "app.js",
   "scripts": {
     "start": "babel-node ./app.js",
-    "test": "jest"
+    "test": "jest",
+    "build": "echo Test build completed! No package was uploaded"
   },
   "repository": {
     "type": "git",
