@@ -139,5 +139,5 @@ jobs:
           gcloud container clusters get-credentials node-demo-k8s
           envsubst < deploy.yml
           envsubst < deploy.yml | kubectl apply -f -
-          kubectl rollout status -w deployment/ultimate-app
+          kubectl rollout status -w deployment/nodejs-demo-app
           kubectl get all
