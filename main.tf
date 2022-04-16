@@ -23,8 +23,8 @@ resource "google_container_cluster" "primary" {
   # let's now configure kubectl to talk to the cluster
   provisioner "local-exec" {
     # we will pas the project ID, zone and cluster name here
-    # nodejs-demo-319000 | us-central1-c | node-demo-k8s
-    command = "gcloud container clusters get-credentials node-demo-k8s --zone us-central1-c --project nodejs-demo-319000"
+    # devops-util-test | us-central1-c | node-demo-k8s
+    command = "gcloud container clusters get-credentials node-demo-k8s --zone us-central1-c --project devops-util-test"
   }
 
   node_config {

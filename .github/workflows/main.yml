@@ -24,6 +24,9 @@ jobs:
       matrix:
         node-version: [14.x]
 
+    # Run build and test only if the commit message says build app
+    if: "contains(github.event.commits[0].message, '[build app]')"
+    
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -136,5 +139,5 @@ jobs:
           gcloud container clusters get-credentials node-demo-k8s
           envsubst < deploy.yml
           envsubst < deploy.yml | kubectl apply -f -
-          kubectl rollout status -w deployment/ultimate-app
+          kubectl rollout status -w deployment/nodejs-ultimate-app
           kubectl get all
