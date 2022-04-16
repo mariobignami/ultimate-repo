@@ -24,9 +24,6 @@ jobs:
       matrix:
         node-version: [14.x]
 
-    # Run build and test only if the commit message says build app
-    if: "contains(github.event.commits[0].message, '[build app]')"
-    
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -118,7 +115,7 @@ jobs:
 
       # Setup gcloud CLI
       - name: setup gcloud CLI
-        uses: google-github-actions/setup-gcloud@master
+        uses: google-github-actions/setup-gcloud@v0
         with:
           project_id: ${{ secrets.GCP_PROJECT }}
           # this is the json key of the service account created on the project
@@ -129,15 +126,13 @@ jobs:
       - name: Deploy
         # To run kubectl commands against a cluster created in Cloud Console, 
         # from another computer, or by another member of the project, 
-        # you need to generate a kubeconfig entry in your environment.
-        # The rolling deployment is the standard default deployment to Kubernetes. 
-        # It works by slowly, one by one, replacing pods of the previous version of 
-        # your application with pods of the new version without any cluster downtime
+        # you need to generate a kubeconfig entry in your environment...
         run: |
-          gcloud config set compute/region us-central1
+          gcloud config set project ${{ secrets.GCP_PROJECT }}
           gcloud config set compute/zone us-central1-c
           gcloud container clusters get-credentials node-demo-k8s
+          kubectl apply -f deploy.yml
           envsubst < deploy.yml
           envsubst < deploy.yml | kubectl apply -f -
-          kubectl rollout status -w deployment/nodejs-ultimate-app
+          kubectl rollout status -w deployment/ultimate-app
           kubectl get all
