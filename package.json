@@ -1,0 +1,33 @@
+{
+  "name": "ultimate-repo",
+  "version": "1.0.0",
+  "description": "This is a demo app",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "start": "babel-node ./app.js",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mariobignami/ultimate-repo.git"
+  },
+  "keywords": [
+    "demoapp",
+    "jest",
+    "node"
+  ],
+  "author": "Mario Bignami",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mariobignami/ultimate-repo/issues"
+  },
+  "homepage": "https://github.com/mariobignami/ultimate-repo#readme",
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset": "^1.1.7",
+    "babel-preset-env": "^1.7.0",
+    "express": "^4.17.3",
+    "jest": "^27.5.1"
+  }
+}
