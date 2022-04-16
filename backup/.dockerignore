@@ -4,20 +4,12 @@
 # ---------------------------------------------------------------------------------*
 node_modules
 npm-debug.log
-
 # ignore .git and .cache folders
 .git
 .cache
-
 # ignore all markdown files (md) beside all README*.md other than README-secret.md
 *.md
 !README*.md
 README-secret.md
-
-# ignore all the file that create Kubernetes local dashboard 
-local_dashboard
-
-# terraform files
-terraform.*
-.terraform/
-.terraform.*
+# github related files
+.github/

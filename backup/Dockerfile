@@ -1,5 +1,5 @@
 FROM node
-LABEL authors="Yann Mulonda"
+LABEL authors="Mario Bignami"
 
 # update dependencies and install curl
 RUN apt-get update && apt-get install -y \
