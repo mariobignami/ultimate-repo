@@ -7,24 +7,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: demo-app-ultimate
+  name: ultimate-app
   namespace: default
 spec:
   replicas: 4                     # this is number of pods
   selector:
     matchLabels:
-      app: demo-app-ultimate
+      app: ultimate-app
   template:
     metadata:
       labels:
-        app: demo-app-ultimate
+        app: ultimate-app
     spec:
       # Kubernetes run docker pull pseudo/your-image:latest under the hood
       # Image field in Kubernetes resources is simply the docker image to run.
       containers:
-      - name: demo-app-ultimate
+      - name: ultimate-app
         # pulling image from my DockerHub
-        image: yanndocker/nodejs-demo:latest
+        image: 002631/ultimate-app:latest
         # using if not present works well with images that has tag
         # if you image is tag:lastest - use Always otherwise you
         # wouldn't get the fresh version of your image
@@ -62,7 +62,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: demo-app-ultimate-entrypoint
+  name: ultimate-app-entrypoint
   namespace: default
 spec:
   # -----------------------------------------------------------*
@@ -71,12 +71,12 @@ spec:
   # you can do that by forwarding a local port to Service target 
   # port with name <my-service-name>
   # e.g -- 
-  # kubectl port-forward service/demo-app-ultimate-entrypoint 3000:443
+  # kubectl port-forward service/ultimate-app-entrypoint 3000:443
   # -----------------------------------------------------------*
   # type: NodePort
   type: LoadBalancer
   selector:
-    app: demo-app-ultimate
+    app: ultimate-app
   # The range of valid ports in kubernetes is 30000-32767
   ports:
     - name: http
