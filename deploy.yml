@@ -83,7 +83,7 @@ spec:
     # - protocol: TCP
     #   port: 30002
     #   targetPort: 30002
-    #   nodePort: 30002
+    #   nodePort: 3000
     # -----------------------------------------------------------*
     # this block is for when you wanna use the type load balancer
     # on your local computer or else where
