@@ -74,7 +74,7 @@ jobs:
             context: ./
             file: ./Dockerfile
             push: true
-            tags: ${{ secrets.DOCKERHUB_USERNAME }}/ultimate-app:latest
+            tags: ${{ secrets.DOCKERHUB_USERNAME }}/ultimate-app:v1.0
 
 
         #   Is has vulnerabilities the deploy process will be interrumpeted
