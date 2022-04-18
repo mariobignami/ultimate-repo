@@ -74,7 +74,12 @@ jobs:
             context: ./
             file: ./Dockerfile
             push: true
-            tags: ${{ secrets.DOCKERHUB_USERNAME }}/ultimate-app:v1.0
+            tags: ${{ secrets.DOCKERHUB_USERNAME }}/ultimate-app:latest
+
+        - name: Security Container Scan
+          uses: Azure/container-scan@v0
+          with:
+            image-name: ultimate-app:latest 
           
         - name: Run the image in a container
           uses: addnab/docker-run-action@v3
