@@ -30,7 +30,7 @@ spec:
       containers:
       - name: nodejs-demo-app
         # pulling image from my DockerHub
-        image: 002631/ultimate-app:v1.0
+        image: 002631/ultimate-app:latest
         # using if not present works well with images that has tag
         # if you image is tag:lastest - use Always otherwise you
         # wouldn't get the fresh version of your image

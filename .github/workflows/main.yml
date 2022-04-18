@@ -74,7 +74,7 @@ jobs:
             context: ./
             file: ./Dockerfile
             push: true
-            tags: ${{ secrets.DOCKERHUB_USERNAME }}/ultimate-app:v1.0
+            tags: ${{ secrets.DOCKERHUB_USERNAME }}/ultimate-app:v1.5
 
 
         #   Is has vulnerabilities the deploy process will be interrumpeted
@@ -86,7 +86,7 @@ jobs:
         - name: Run the image in a container
           uses: addnab/docker-run-action@v3
           with:
-            image: ${{ secrets.DOCKERHUB_USERNAME }}/ultimate-app:v1.0
+            image: ${{ secrets.DOCKERHUB_USERNAME }}/ultimate-app:v1.5
             run: |
               echo "runing the docker image"
               echo "Testing the nodejs  app endpoints"
