@@ -49,25 +49,25 @@ export const getPeople = (req, res) => {
             FirstName: 'Max',
             LastName: 'Behringer',
             title: 'Software Engineer',
-            LinkedIn: 'https://www.linkedin.com/in/yannmjl/'
+            LinkedIn: 'https://www.linkedin.com/in/teste.teste'
         },
         {
             FirstName: 'Bernard',
             LastName: 'Rechaud',
             title: 'Software Developer',
-            LinkedIn: 'https://www.linkedin.com/in/bernard-ngandu/'
+            LinkedIn: 'https://www.linkedin.com/in/teste.teste'
         },
         {
             FirstName: 'Cleopatra',
             LastName: 'Magandi',
             title: 'Web Developer',
-            LinkedIn: 'https://www.linkedin.com/in/clerc-ngonga-b1253b174/'
+            LinkedIn: 'https://www.linkedin.com/in/teste.teste'
         },
         {
             FirstName: 'Boris',
             LastName: 'Johnson',
             title: 'Web Developer',
-            LinkedIn: 'https://www.linkedin.com/in/gloire-kafwalubi-3152871a0/'
+            LinkedIn: 'https://www.linkedin.com/in/teste.teste'
         }
     ]);
 }
