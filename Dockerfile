@@ -16,7 +16,7 @@ WORKDIR /app
 #     ./source ./
 
 # This will copy everything from the source path 
-# --more of a convenience when testing locally.
+# --more of a convenience when teesting locally.
 COPY . .
 
 # update each dependency in package.json to the latest version
