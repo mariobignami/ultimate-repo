@@ -74,7 +74,7 @@ jobs:
             context: ./
             file: ./Dockerfile
             push: true
-            tags: ${{ secrets.DOCKERHUB_USERNAME }}/ultimate-app:latest
+            tags: ${{ secrets.DOCKERHUB_USERNAME }}/ultimate-app
           
         - name: Run the image in a container
           uses: addnab/docker-run-action@v3
