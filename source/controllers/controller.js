@@ -46,26 +46,26 @@ export const getMonthsName = (req, res) => {
 export const getPeople = (req, res) => {
     res.json([
         {
-            FirstName: 'Yann',
-            LastName: 'Mulonda',
+            FirstName: 'Max',
+            LastName: 'Behringer',
             title: 'Software Engineer',
             LinkedIn: 'https://www.linkedin.com/in/yannmjl/'
         },
         {
             FirstName: 'Bernard',
-            LastName: 'Ng',
+            LastName: 'Rechaud',
             title: 'Software Developer',
             LinkedIn: 'https://www.linkedin.com/in/bernard-ngandu/'
         },
         {
-            FirstName: 'Clerc',
-            LastName: 'Kapema',
+            FirstName: 'Cleopatra',
+            LastName: 'Magandi',
             title: 'Web Developer',
             LinkedIn: 'https://www.linkedin.com/in/clerc-ngonga-b1253b174/'
         },
         {
-            FirstName: 'Gloire',
-            LastName: 'Kafwalubi',
+            FirstName: 'Boris',
+            LastName: 'Johnson',
             title: 'Web Developer',
             LinkedIn: 'https://www.linkedin.com/in/gloire-kafwalubi-3152871a0/'
         }
