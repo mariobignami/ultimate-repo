@@ -26,7 +26,7 @@ spec:
         app: nodejs-demo-app
     spec:
       # Kubernetes run docker pull pseudo/your-image:latest under the hood
-      # Image field in Kubernetes resources is simply the docker image to run.
+      # Image field in Kubernetes resources is simply the docker imagee to run.
       containers:
       - name: nodejs-demo-app
         # pulling image from my DockerHub
