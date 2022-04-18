@@ -79,7 +79,7 @@ jobs:
         - name: Security Container Scan
           uses: Azure/container-scan@v0
           with:
-            image-name: ultimate-app:latest 
+            image-name: ${{ secrets.DOCKERHUB_USERNAME }}/ultimate-app:latest 
           
         - name: Run the image in a container
           uses: addnab/docker-run-action@v3
