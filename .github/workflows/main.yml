@@ -44,6 +44,11 @@ jobs:
         run: |
           npm run build
           npm run test
+          
+      # SONARQUBE CODE ANALISYS 
+     - name: SonarQube Scanner
+       uses: ItsEcholot/sonarqube-action@v0.0.2  
+        
   push_to_Docker_Hub:
       name: Push Images to DockerHub
       # The type of runner that the job will run on
