@@ -33,6 +33,10 @@ jobs:
         uses: actions/setup-node@master
         with:
           node-version: ${{ matrix.node-version }}
+          
+      # sonarqube test    
+      - name: SonarQube Scanner
+        uses: ItsEcholot/sonarqube-action@v0.0.2
 
       # install applicaion dependencies
       - name: Install dependencies
@@ -45,10 +49,6 @@ jobs:
           npm run build
           npm run test
           
-      # SONARQUBE CODE ANALISYS 
-     - name: SonarQube Scanner
-       uses: ItsEcholot/sonarqube-action@v0.0.2  
-        
   push_to_Docker_Hub:
       name: Push Images to DockerHub
       # The type of runner that the job will run on
