@@ -34,10 +34,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           
-      # sonarqube test    
-      - name: SonarQube Scanner
-        uses: ItsEcholot/sonarqube-action@v0.0.2
-
       # install applicaion dependencies
       - name: Install dependencies
         run: |
