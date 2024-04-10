@@ -8,6 +8,6 @@
 # corresponding provider blocks in configuration
 provider "google" {
   # version = "~> 3.77.0"
-  project = "devops-util-test"
+  project = "ultimate-app-gcp"
   region  = "us-central1-c"
 }

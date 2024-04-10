@@ -24,7 +24,7 @@ resource "google_container_cluster" "primary" {
   provisioner "local-exec" {
     # we will pas the project ID, zone and cluster name here
     # devops-util-test | us-central1-c | node-demo-k8s
-    command = "gcloud container clusters get-credentials node-demo-k8s --zone us-central1-c --project devops-util-test"
+    command = "gcloud container clusters get-credentials node-demo-k8s --zone us-central1-c --project ultimate-app-gcp"
   }
 
   node_config {
