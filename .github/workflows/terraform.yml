@@ -55,3 +55,6 @@ jobs:
             echo "Unexpected event type. Exiting..."
             exit 1
           fi
+        env:
+          TF_VAR_HMAC_ACCESS_KEY: ${{ secrets.HMAC_ACCESS_KEY }}
+          TF_VAR_HMAC_SECRET: ${{ secrets.HMAC_SECRET }}
