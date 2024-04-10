@@ -11,7 +11,7 @@ variable "HMAC_SECRET" {
 
 provider "google" {
     credentials = file("creds.json")
-    project     = "devops-util-test"
+    project     = "ultimate-app-gcp"
     region      = "us-central1"
 }
 
@@ -27,7 +27,7 @@ resource "google_container_cluster" "primary" {
     }
 
     provisioner "local-exec" {
-        command = "gcloud container clusters get-credentials node-demo-k8s --zone us-central1-c --project devops-util-test"
+        command = "gcloud container clusters get-credentials node-demo-k8s --zone us-central1-c --project ultimate-app-gcp"
     }
 
     node_config {
