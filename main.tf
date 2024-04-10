@@ -1,9 +1,9 @@
-variable "HMAC_ACCESS_KEY" {
+variable "TF_VAR_HMAC_ACCESS_KEY" {
   description = "The HMAC access key for GCP"
   type        = string
 }
 
-variable "HMAC_SECRET" {
+variable "TF_VAR_HMAC_SECRET" {
   description = "The HMAC secret for GCP"
   type        = string
   sensitive   = true
