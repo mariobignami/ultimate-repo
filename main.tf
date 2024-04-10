@@ -12,10 +12,8 @@ resource "google_container_cluster" "primary" {
   # for this demo, we'll have no auth set up
   # master_auth: The aut information for accessing the Kubernetes master.
   master_auth {
-    # Remove the "username" and "password" attributes
-    # as they are not expected here.
-    # username = ""
-    # password = ""
+    username = var.HMAC_ACCESS_KEY
+    password = var.HMAC_SECRET
 
     client_certificate_config {
       issue_client_certificate = false
@@ -26,7 +24,7 @@ resource "google_container_cluster" "primary" {
   provisioner "local-exec" {
     # we will pas the project ID, zone and cluster name here
     # devops-util-test | us-central1-c | node-demo-k8s
-    command = "gcloud container clusters get-credentials node-demo-k8s --zone us-central1-c --project ultimate-app-gcp"
+    command = "gcloud container clusters get-credentials node-demo-k8s --zone us-central1-c --project devops-util-test"
   }
 
   node_config {
