@@ -2,9 +2,6 @@ name: 'Terraform'
 run-name: Infra Deploy of ${{inputs.devops_tf_verb}}
 
 on:
-  push:
-    branches:
-    - main
   workflow_dispatch:
     inputs:
       devops_tf_verb:
@@ -23,23 +20,38 @@ jobs:
         shell: bash
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
 
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v1
-      with:
-        cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
-    - name: Terraform Init
-      run: terraform init
-      env:
-        TF_VAR_HMAC_ACCESS_KEY: ${{ secrets.HMAC_ACCESS_KEY }}
-        TF_VAR_HMAC_SECRET: ${{ secrets.HMAC_SECRET }} 
+      - name: Terraform Init
+        run: terraform init
+        env:
+          TF_VAR_HMAC_ACCESS_KEY: ${{ secrets.HMAC_ACCESS_KEY }}
+          TF_VAR_HMAC_SECRET: ${{ secrets.HMAC_SECRET }} 
 
-    - name: Terraform Plan
-      run: terraform plan
-
-    - name: Terraform Apply
-      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-      run: terraform apply -auto-approve
+      - name: Terraform Plan or Apply
+        run: |
+          if [ "${{ github.event_name }}" == "push" ]; then
+            echo "This is a push event, running Terraform plan..."
+            terraform plan
+          elif [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            echo "This is a manual workflow_dispatch event. Checking for plan/apply..."
+            if [ "${{ inputs.devops_tf_verb }}" == "plan" ]; then
+              echo "Running Terraform plan..."
+              terraform plan
+            elif [ "${{ inputs.devops_tf_verb }}" == "apply" ]; then
+              echo "Running Terraform apply..."
+              terraform apply -auto-approve
+            else
+              echo "Invalid input. Please choose 'plan' or 'apply'."
+              exit 1
+            fi
+          else
+            echo "Unexpected event type. Exiting..."
+            exit 1
+          fi
