@@ -9,11 +9,11 @@ variable "HMAC_SECRET" {
     sensitive   = true
 }
 
-provider "google" {
-    credentials = file("creds.json")
-    project     = "ultimate-app-gcp"
-    region      = "us-central1"
-}
+//provider "google" {
+  //  credentials = file("creds.json")
+    //project     = "ultimate-app-gcp"
+    //region      = "us-central1"
+//}
 
 resource "google_container_cluster" "primary" {
     name               = "node-demo-k8s"  # cluster name
