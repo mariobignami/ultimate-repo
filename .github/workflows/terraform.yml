@@ -31,6 +31,7 @@ jobs:
       - name: Terraform Init
         run: terraform init
         env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
           HMAC_ACCESS_KEY: ${{ secrets.HMAC_ACCESS_KEY }}
           HMAC_SECRET: ${{ secrets.HMAC_SECRET }} 
 
@@ -56,5 +57,6 @@ jobs:
             exit 1
           fi
         env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
           HMAC_ACCESS_KEY: ${{ secrets.HMAC_ACCESS_KEY }}
           HMAC_SECRET: ${{ secrets.HMAC_SECRET }}
