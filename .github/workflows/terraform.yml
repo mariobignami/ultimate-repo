@@ -31,8 +31,8 @@ jobs:
       - name: Terraform Init
         run: terraform init
         env:
-          TF_VAR_HMAC_ACCESS_KEY: ${{ secrets.HMAC_ACCESS_KEY }}
-          TF_VAR_HMAC_SECRET: ${{ secrets.HMAC_SECRET }} 
+          HMAC_ACCESS_KEY: ${{ secrets.HMAC_ACCESS_KEY }}
+          HMAC_SECRET: ${{ secrets.HMAC_SECRET }} 
 
       - name: Terraform Plan or Apply
         run: |
@@ -56,5 +56,5 @@ jobs:
             exit 1
           fi
         env:
-          TF_VAR_HMAC_ACCESS_KEY: ${{ secrets.HMAC_ACCESS_KEY }}
-          TF_VAR_HMAC_SECRET: ${{ secrets.HMAC_SECRET }}
+          HMAC_ACCESS_KEY: ${{ secrets.HMAC_ACCESS_KEY }}
+          HMAC_SECRET: ${{ secrets.HMAC_SECRET }}
