@@ -11,3 +11,11 @@
 //    project     = "ultimate-app-gcp"
 //    region      = "us-central1"
 //}
+
+
+
+//provider "google" {
+  //  credentials = file("creds.json")
+    //project     = "ultimate-app-gcp"
+    //region      = "us-central1"
+//}
