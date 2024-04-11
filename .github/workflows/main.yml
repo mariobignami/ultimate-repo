@@ -92,6 +92,7 @@ jobs:
               echo "runing the docker image"
               echo "Testing the nodejs  app endpoints"
               echo ${{ steps.docker_build.outputs.digest }}
+  
   deploy_to_heroku:
     name: Deploy to Heroku
     runs-on: ubuntu-latest
@@ -129,6 +130,11 @@ jobs:
           # this is the json key of the service account created on the project
           service_account_key: ${{ secrets.GCP_CREDENTIALS }}  
           export_default_credentials: true
+
+      # Install gke-gcloud-auth-plugin
+      - name: Install gke-gcloud-auth-plugin
+        run: |
+          gcloud components install gke-gcloud-auth-plugin
 
       # Deploy the app using kubernetes (deploy.yml)
       - name: Deploy
