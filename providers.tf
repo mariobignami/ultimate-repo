@@ -12,6 +12,10 @@
 //    region      = "us-central1"
 //}
 
+provider "google" {
+  version = ">= 3.0.0"
+  ...
+}
 
 
 provider "google" {
