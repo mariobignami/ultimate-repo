@@ -23,7 +23,3 @@ variable "cluster_name" {
   default     = "node-demo-k8s"
 }
 
-variable "google_credentials" {
-    default = "${env("GOOGLE_CREDENTIALS")}"
-}
-
