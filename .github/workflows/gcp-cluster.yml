@@ -1,9 +1,13 @@
  name: Build
+ run-name: Infra Deploy of ${{inputs.devops_tf_verb}}
 
  on:
-   push:
-     branches:
-       - main
+    workflow_dispatch:
+      inputs:
+        devops_tf_verb:
+          description: 'Terraform apply/plan/destroy'
+          required: true
+          default: 'plan'
 
  jobs:
    build:

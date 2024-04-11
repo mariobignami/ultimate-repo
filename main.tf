@@ -3,14 +3,19 @@
 # -------------------------------------------------------------*
 # This will created the Kubernetes cluster and nodes in GCP
 
-  terraform {
-    required_providers {
-      google = {
-        source  = "hashicorp/google"
-        version = ">= 3.78.0"
-      }
+terraform {
+  required_providers {
+    google = {
+      source  = "hashicorp/google"
+      version = ">= 3.78.0"
     }
   }
+
+  backend "gcs" {
+    bucket  = "devops-bucket-ult"
+    prefix  = "terraform/state"
+  }
+}
 
 resource "google_container_cluster" "primary" {
   name               = "node-demo-k8s"  # cluster name
