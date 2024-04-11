@@ -53,15 +53,15 @@ jobs:
         run: |
           if [ "${{ github.event_name }}" == "push" ]; then
             echo "This is a push event, running Terraform plan..."
-            terraform plan -var="google_credentials=${{ secrets.GCP_CREDENTIALS }}"
+            terraform plan
           elif [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
             echo "This is a manual workflow_dispatch event. Checking for plan/apply..."
             if [ "${{ inputs.devops_tf_verb }}" == "plan" ]; then
               echo "Running Terraform plan..."
-              terraform plan -var="google_credentials=${{ secrets.GCP_CREDENTIALS }}"
+              terraform plan
             elif [ "${{ inputs.devops_tf_verb }}" == "apply" ]; then
               echo "Running Terraform apply..."
-              terraform apply -auto-approve -var="google_credentials=${{ secrets.GCP_CREDENTIALS }}"
+              terraform apply -auto-approve
             else
               echo "Invalid input. Please choose 'plan' or 'apply'."
               exit 1

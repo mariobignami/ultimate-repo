@@ -1,8 +1,3 @@
-variable "google_credentials" {
-  description = "The Google Cloud credentials JSON"
-  type        = string
-}
-
 variable "project_id" {
   description = "The Google Cloud project ID"
   type        = string
@@ -27,4 +22,12 @@ variable "cluster_name" {
   type        = string
   default     = "node-demo-k8s"
 }
-    
+
+provider "google" {
+    credentials = "${var.google_credentials}"
+}
+
+variable "google_credentials" {
+    default = "${env("GOOGLE_CREDENTIALS")}"
+}
+
