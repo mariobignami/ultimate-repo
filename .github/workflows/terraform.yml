@@ -47,7 +47,7 @@ jobs:
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/service-account-key.json
           HMAC_ACCESS_KEY: ${{ secrets.HMAC_ACCESS_KEY }}
-          HMAC_SECRET: ${{ secrets.HMAC_SECRET }} 
+          HMAC_SECRET: ${{ secrets.GCP_CREDENTIALS }} 
 
       - name: Terraform Plan or Apply
         run: |
@@ -73,4 +73,4 @@ jobs:
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/service-account-key.json
           HMAC_ACCESS_KEY: ${{ secrets.HMAC_ACCESS_KEY }}
-          HMAC_SECRET: ${{ secrets.HMAC_SECRET }}
+          HMAC_SECRET: ${{ secrets.GCP_CREDENTIALS }}

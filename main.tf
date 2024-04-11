@@ -9,13 +9,12 @@ variable "HMAC_SECRET" {
   sensitive   = true
 }
 
-variable "GOOGLE_APPLICATION_CREDENTIALS" {
-  description = "Path to the GCP service account key JSON file"
+variable "GCP_CREDENTIALS" {
+  description = "The value of the GCP credentials file in JSON format"
   type        = string
 }
-
 provider "google" {
-  credentials = file(var.GOOGLE_APPLICATION_CREDENTIALS)
+  credentials = file(var.GCP_CREDENTIALS)
   project     = "ultimate-app-gcp"
   region      = "us-central1"
 }
