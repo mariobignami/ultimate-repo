@@ -24,7 +24,7 @@ jobs:
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
         run: |
-          echo "${GOOGLE_APPLICATION_CREDENTIALS}" | base64 --decode > gcp_creds.json
+          echo "${GOOGLE_APPLICATION_CREDENTIALS}" > gcp_creds.json
           gcloud auth activate-service-account --key-file=gcp_creds.json
       
       - name: 'Set up Cloud SDK'
