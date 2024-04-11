@@ -34,10 +34,10 @@ jobs:
           service_account_key: ${{ secrets.GCP_CREDENTIALS }}
           export_default_credentials: true
 
-      - name: Download service account key
-        run: gsutil cp gs://devops-bucket-ult/ultimate-app-gcp-52aac8754b10.json ${{ github.workspace }}/service-account-key.json
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/service-account-key.json
+      # - name: Download service account key
+      #   run: gsutil cp gs://devops-bucket-ult/ultimate-app-gcp-52aac8754b10.json ${{ github.workspace }}/service-account-key.json
+      #   env:
+      #     GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/service-account-key.json
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
