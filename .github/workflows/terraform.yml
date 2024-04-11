@@ -39,6 +39,12 @@ jobs:
       #   env:
       #     GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/service-account-key.json
 
+      - name: Setup Google Cloud credentials
+        run: |
+          echo '${{ secrets.GCP_CREDENTIALS }}' > ./gcp_credentials.json
+        env:
+          GOOGLE_CREDENTIALS: ./gcp_credentials.json
+
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
         with:

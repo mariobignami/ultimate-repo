@@ -15,7 +15,7 @@
 
 
 provider "google" {
-  credentials = "${var.google_credentials}"
+  credentials = file(env("GOOGLE_CREDENTIALS"))
   project     = "${var.project_id}"
   region      = "${var.region}"
   zone        = "${var.zone}"
