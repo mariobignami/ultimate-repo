@@ -15,7 +15,6 @@
 
 
 provider "google" {
-  credentials = file("${GOOGLE_APPLICATION_CREDENTIALS}")
   project     = var.project_id
   region      = var.region
 }
