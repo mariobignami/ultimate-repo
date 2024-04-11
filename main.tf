@@ -12,14 +12,19 @@ resource "google_container_cluster" "primary" {
   # for this demo, we'll have no auth set up
   # master_auth: The aut information for accessing the Kubernetes master.
   master_auth {
-    username = null
-    password = null
-  
     client_certificate_config {
       issue_client_certificate = false
     }
   }
 
+  terraform {
+    required_providers {
+      google = {
+        source  = "hashicorp/google"
+        version = ">= 3.0.0"
+      }
+    }
+  }
   # let's now configure kubectl to talk to the cluster
   provisioner "local-exec" {
     # we will pas the project ID, zone and cluster name here
