@@ -14,8 +14,13 @@
 
 
 
-//provider "google" {
-  //  credentials = file("creds.json")
-    //project     = "ultimate-app-gcp"
-    //region      = "us-central1"
-//}
+provider "google" {
+    credentials = file("terraform-gcp-auth.json")
+    project = var.project_name
+}
+
+variable "project_name" {
+  type = string
+  default = "ultimate-app-gcp"
+  description = "Service Project Name"
+}

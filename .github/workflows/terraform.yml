@@ -9,6 +9,10 @@ on:
         required: true
         default: 'plan'
 
+env:
+  GOOGLE_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
+  GOOGLE_PROJECT: ${{ secrets.GCP_PROJECT_ID }}
+
 jobs:
   terraform:
     name: 'Terraform'
@@ -26,8 +30,8 @@ jobs:
       - name: Setup Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
         with:
-          project_id: ${{ secrets.GCP_PROJECT_ID }}
-          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          project_id: ${{ secrets.GCP_PROJECT }}
+          service_account_key: ${{ secrets.GCP_CREDENTIALS }}
           export_default_credentials: true
 
       - name: Download service account key
@@ -44,10 +48,6 @@ jobs:
 
       - name: Terraform Init
         run: terraform init
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/service-account-key.json
-          HMAC_ACCESS_KEY: ${{ secrets.HMAC_ACCESS_KEY }}
-          HMAC_SECRET: ${{ secrets.GCP_CREDENTIALS }} 
 
       - name: Terraform Plan or Apply
         run: |
@@ -73,4 +73,4 @@ jobs:
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/service-account-key.json
           HMAC_ACCESS_KEY: ${{ secrets.HMAC_ACCESS_KEY }}
-          HMAC_SECRET: ${{ secrets.GCP_CREDENTIALS }}
+          HMAC_SECRET: ${{ secrets.HMAC_SECRET }}
