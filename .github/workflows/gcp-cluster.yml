@@ -1,36 +1,36 @@
-# name: Build
+ name: Build
 
-# on:
-#   push:
-#     branches:
-#       - main
+ on:
+   push:
+     branches:
+       - main
 
-# jobs:
-#   build:
-#     runs-on: ubuntu-latest
+ jobs:
+   build:
+     runs-on: ubuntu-latest
 
-#     steps:
-#     - name: Checkout code
-#       uses: actions/checkout@v2
+     steps:
+     - name: Checkout code
+       uses: actions/checkout@v2
 
-#     - name: Setup Terraform
-#       uses: hashicorp/setup-terraform@v1
-#       with:
-#         terraform_version: 0.14.0
+     - name: Setup Terraform
+       uses: hashicorp/setup-terraform@v1
+       with:
+         terraform_version: 0.14.0
 
-#     - name: Setup GCP credentials
-#       run: echo "${{ secrets.GCP_CREDENTIALS }}" > creds.json
-#       env:
-#         GCP_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
+     - name: Setup GCP credentials
+       run: echo "${{ secrets.GCP_CREDENTIALS }}" > creds.json
+       env:
+         GCP_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
 
-#     - name: Terraform Init
-#       run: terraform init
+     - name: Terraform Init
+       run: terraform init
 
-#     - name: Terraform Validate
-#       run: terraform validate
+     - name: Terraform Validate
+       run: terraform validate
 
-#     - name: Terraform Plan
-#       run: terraform plan
+     - name: Terraform Plan
+       run: terraform plan
 
-#     - name: Terraform Apply
-#       run: terraform apply -auto-approve
+     - name: Terraform Apply
+       run: terraform apply -auto-approve
