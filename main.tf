@@ -12,9 +12,9 @@ resource "google_container_cluster" "primary" {
   # for this demo, we'll have no auth set up
   # master_auth: The aut information for accessing the Kubernetes master.
   master_auth {
-    username = ""
-    password = ""
-
+    username = null
+    password = null
+  
     client_certificate_config {
       issue_client_certificate = false
     }
