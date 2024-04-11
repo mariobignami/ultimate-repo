@@ -24,14 +24,11 @@ jobs:
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
         run: |
-          echo "${GOOGLE_APPLICATION_CREDENTIALS}" > gcp_creds.json
+          echo "${GOOGLE_APPLICATION_CREDENTIALS}" | base64 --decode > gcp_creds.json
           gcloud auth activate-service-account --key-file=gcp_creds.json
 
-      - name: Setup Google Cloud SDK
-        uses: hashicorp/setup-gcloud@v0.2.0
-
       - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v1
+        uses: hashicorp/setup-terraform@v3
         with:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
