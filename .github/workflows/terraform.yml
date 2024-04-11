@@ -30,8 +30,8 @@ jobs:
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
 
-      - name: Terraform Init
-        run: terraform init
+      - name: Terraform plan
+        run: terraform plan
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
           HMAC_ACCESS_KEY: ${{ secrets.HMAC_ACCESS_KEY }}
