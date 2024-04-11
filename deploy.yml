@@ -11,7 +11,7 @@ metadata:
   name: nodejs-demo-app
   namespace: default
 spec:
-  replicas: 4                     # this is number of pods
+  replicas: 2                     # this is number of pods
   strategy:
     type: RollingUpdate
     rollingUpdate:

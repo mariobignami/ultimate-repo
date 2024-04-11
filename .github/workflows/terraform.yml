@@ -20,7 +20,7 @@ jobs:
       - name: Checkout do repositório
         uses: actions/checkout@v2
 
-      - name: Autenticar no GCP
+      - name: Authenticate on GCP
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
         run: |
