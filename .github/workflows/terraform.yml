@@ -1,3 +1,18 @@
+name: 'Terraform'
+run-name: Infra Deploy of ${{inputs.devops_tf_verb}}
+
+on:
+  workflow_dispatch:
+    inputs:
+      devops_tf_verb:
+        description: 'Terraform apply/plan/destroy'
+        required: true
+        default: 'plan'
+
+env:
+  GOOGLE_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
+  GOOGLE_PROJECT: ${{ secrets.GCP_PROJECT_ID }}
+
 jobs:
   terraform:
     name: 'Terraform'
