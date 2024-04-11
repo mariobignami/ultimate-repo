@@ -15,8 +15,9 @@
 
 
 provider "google" {
-    credentials = file("terraform-gcp-auth.json")
-    project = var.project_name
+  credentials = "${var.google_credentials}"
+  project     = "${var.project_id}"
+  region      = "${var.region}"
 }
 
 variable "project_name" {
