@@ -2,6 +2,16 @@
 # Create and config Kubernetes cluster
 # -------------------------------------------------------------*
 # This will created the Kubernetes cluster and nodes in GCP
+
+  terraform {
+    required_providers {
+      google = {
+        source  = "hashicorp/google"
+        version = ">= 3.78.0"
+      }
+    }
+  }
+
 resource "google_container_cluster" "primary" {
   name               = "node-demo-k8s"  # cluster name
    location          = "us-central1-c"
@@ -17,14 +27,6 @@ resource "google_container_cluster" "primary" {
     }
   }
 
-  terraform {
-    required_providers {
-      google = {
-        source  = "hashicorp/google"
-        version = ">= 3.0.0"
-      }
-    }
-  }
   # let's now configure kubectl to talk to the cluster
   provisioner "local-exec" {
     # we will pas the project ID, zone and cluster name here
