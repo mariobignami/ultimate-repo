@@ -25,3 +25,8 @@ variable "project_name" {
   default = "ultimate-app-gcp"
   description = "Service Project Name"
 }
+
+variable "google_credentials" {
+  description = "Path to the Google Cloud service account key JSON file"
+  type        = string
+}
