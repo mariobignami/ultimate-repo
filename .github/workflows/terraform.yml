@@ -23,17 +23,29 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Setup Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@master
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          export_default_credentials: true
+
+      - name: Download service account key
+        run: gsutil cp gs://devops-bucket-ult/ultimate-app-gcp-52aac8754b10.json ${{ github.workspace }}/service-account-key.json
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/service-account-key.json
+
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
         with:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
         env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/service-account-key.json
 
-      - name: Terraform plan
-        run: terraform plan
+      - name: Terraform Init
+        run: terraform init
         env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/service-account-key.json
           HMAC_ACCESS_KEY: ${{ secrets.HMAC_ACCESS_KEY }}
           HMAC_SECRET: ${{ secrets.HMAC_SECRET }} 
 
@@ -59,6 +71,6 @@ jobs:
             exit 1
           fi
         env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/service-account-key.json
           HMAC_ACCESS_KEY: ${{ secrets.HMAC_ACCESS_KEY }}
           HMAC_SECRET: ${{ secrets.HMAC_SECRET }}
