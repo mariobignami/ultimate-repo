@@ -14,24 +14,18 @@ env:
   GOOGLE_PROJECT: ${{ secrets.GCP_PROJECT_ID }}
 
 jobs:
-  terraform:
-    name: 'Terraform'
+  build:
     runs-on: ubuntu-latest
-    environment: production
-
-    defaults:
-      run:
-        shell: bash
-
     steps:
-      - name: Checkout
+      - name: Checkout do repositório
         uses: actions/checkout@v2
 
-      - name: Setup Google Cloud credentials
-        run: |
-          echo '${{ secrets.GCP_CREDENTIALS }}' > ./gcp_credentials.json
+      - name: Autenticar no GCP
         env:
-          GOOGLE_APPLICATION_CREDENTIALS: ./gcp_credentials.json
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
+        run: |
+          echo "${GOOGLE_APPLICATION_CREDENTIALS}" | base64 --decode > gcp_creds.json
+          gcloud auth activate-service-account --key-file=gcp_creds.json
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
