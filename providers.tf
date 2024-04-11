@@ -13,14 +13,9 @@
 //}
 
 provider "google" {
-  version = ">= 3.0.0"
-  ...
-}
-
-
-provider "google" {
   project     = var.project_id
   region      = var.region
+  version = ">= 3.0.0"
 }
 
 variable "project_name" {
