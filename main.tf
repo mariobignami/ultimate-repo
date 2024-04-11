@@ -20,7 +20,7 @@ terraform {
 resource "google_container_cluster" "primary" {
   name               = "node-demo-k8s"  # cluster name
   location          = "us-central1-c"
-  initial_node_count = 2               # number of node (VMs) for the cluster
+  initial_node_count = 3               # number of node (VMs) for the cluster
   deletion_protection = false
 
   # Google recommends custom service accounts that have cloud-platform 

@@ -11,7 +11,7 @@ metadata:
   name: nodejs-demo-app
   namespace: default
 spec:
-  replicas: 2                     # this is number of pods
+  replicas: 3                     # this is number of pods
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -44,11 +44,11 @@ spec:
         # -----------------------------------------------------------*
         resources:
           limits:
-            memory: 64Mi
+            memory: 512Mi
             cpu: "250m"
           requests:
-            memory: 32Mi
-            cpu: "200m"
+            memory: 256Mi
+            cpu: "100m"
         # specify the container port
         ports:
         - containerPort: 30002
