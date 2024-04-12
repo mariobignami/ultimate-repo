@@ -42,7 +42,7 @@ resource "google_container_cluster" "primary" {
 
   node_config {
     preemptible  = true
-    machine_type = "e2-micro"
+    machine_type = "e2-standard-4"
 
     oauth_scopes = [
       "https://www.googleapis.com/auth/compute",
