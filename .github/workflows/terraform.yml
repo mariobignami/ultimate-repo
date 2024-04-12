@@ -1,5 +1,5 @@
 name: 'Terraform'
-run-name: Infra Deploy of ${{inputs.devops_tf_verb}}
+run-name: Infra Deploy ${{inputs.devops_tf_verb}}
 
 on:
   workflow_dispatch:
