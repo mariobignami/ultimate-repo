@@ -65,10 +65,3 @@ jobs:
             echo "Unexpected event type. Exiting..."
             exit 1
           fi
-      - name: Show Summary
-        run: |
-          echo "Workflow Summary:"
-          echo "Terraform Action: ${{ inputs.devops_tf_verb }}"
-          echo "Google Project: ${{ env.GOOGLE_PROJECT }}"
-          echo "Environment: production"
-          echo "Event Type: ${{ github.event_name }}"
