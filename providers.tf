@@ -10,7 +10,7 @@
 provider "google" {
   project     = var.project_id
   region      = var.region
-  version = ">= 3.78.0"
+  version = ">= 416.0.0"
 }
 
 variable "project_name" {
