@@ -6,11 +6,16 @@
 # to new major versions that may contain breaking changes, 
 # it is recommended to add version = "..." constraints to the
 # corresponding provider blocks in configuration
+//provider "google" {
+//    credentials = file("creds.json")
+//    project     = "ultimate-app-gcp"
+//    region      = "us-central1"
+//}
 
 provider "google" {
   project     = var.project_id
   region      = var.region
-  version = ">= 416.0.0"
+  version = ">= 3.78.0"
 }
 
 variable "project_name" {

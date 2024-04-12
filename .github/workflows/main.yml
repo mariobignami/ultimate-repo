@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [20.x]
+        node-version: [14.x]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -30,7 +30,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: setup node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@master
         with:
           node-version: ${{ matrix.node-version }}
           
@@ -44,12 +44,6 @@ jobs:
         run: |
           npm run build
           npm run test
-
-      - name: Show Build & Test Summary
-        run: |
-          echo "Build & Test Summary:"
-          echo "Node Version: ${{ matrix.node-version }}"
-          echo "Event Type: ${{ github.event_name }}"
           
   push_to_Docker_Hub:
       name: Push Images to DockerHub
@@ -64,25 +58,32 @@ jobs:
           uses: actions/checkout@v2
 
         - name: Set up QEMU
-          uses: docker/setup-qemu-action@v3
+          uses: docker/setup-qemu-action@v1
       
         - name: Set up Docker Buildx
-          uses: docker/setup-buildx-action@v3
+          uses: docker/setup-buildx-action@v1
 
         - name: Login to DockerHub
-          uses: docker/login-action@v3
+          uses: docker/login-action@v1
           with:
             username: ${{ secrets.DOCKERHUB_USERNAME }}
             password: ${{ secrets.DOCKERHUB_TOKEN }}
       
         - name: Build and push
-          uses: docker/build-push-action@v5
+          uses: docker/build-push-action@v2
           with:
             context: ./
             file: ./Dockerfile
             push: true
             tags: ${{ secrets.DOCKERHUB_USERNAME }}/ultimate-app:prod-version
 
+
+        #   Is has vulnerabilities the deploy process will be interrumpeted
+        # - name: Security Container Scan
+        #   uses: Azure/container-scan@v0
+        #   with:
+        #     image-name: ${{ secrets.DOCKERHUB_USERNAME }}/ultimate-app:latest 
+          
         - name: Run the image in a container
           uses: addnab/docker-run-action@v3
           with:
@@ -91,13 +92,6 @@ jobs:
               echo "runing the docker image"
               echo "Testing the nodejs  app endpoints"
               echo ${{ steps.docker_build.outputs.digest }}
-
-        - name: Show Docker Push Summary
-          run: |
-            echo "Docker Push Summary:"
-            echo "Docker Hub Username: ${{ secrets.DOCKERHUB_USERNAME }}"
-            echo "Docker Image: ${{ secrets.DOCKERHUB_USERNAME }}/ultimate-app:prod-version"
-            echo "Event Type: ${{ github.event_name }}"
   
   deploy_to_heroku:
     name: Deploy to Heroku
@@ -118,12 +112,6 @@ jobs:
           # build the app docker image using the Dockerfile
           # and run that image in a container that's pushed to heroku
           usedocker: true
-
-      - name: Show Heroku Deploy Summary
-        run: |
-          echo "Heroku Deploy Summary:"
-          echo "Heroku App Name: ${{ secrets.HEROKU_APP_NAME }}"
-          echo "Event Type: ${{ github.event_name }}"
 
   deploy_to_google_cloud:
     name: Deploy to GCP
@@ -147,6 +135,7 @@ jobs:
       - name: Install gke-gcloud-auth-plugin
         run: |
           gcloud components install gke-gcloud-auth-plugin
+
       # Deploy the app using kubernetes (deploy.yml)
       - name: Deploy
         # To run kubectl commands against a cluster created in Cloud Console, 

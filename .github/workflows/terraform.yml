@@ -16,9 +16,8 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment: production
     steps:
-      - name: Repository Checkout
+      - name: Checkout do repositório
         uses: actions/checkout@v2
 
       - name: Authenticate on GCP
