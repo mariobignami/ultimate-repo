@@ -22,12 +22,12 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [12.x, 14.x, 16.x]
+        node-version: [14.x, 16.x, 20.x]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: setup node ${{ matrix.node-version }}
         uses: actions/setup-node@v2
@@ -117,7 +117,7 @@ jobs:
     name: Deploy to GCP
     runs-on: ubuntu-latest
     # only deploy to GPC if and after deploying to Heroku successed
-    needs: [deploy_to_heroku]
+    needs: [push_to_Docker_Hub]
     steps:
       - name: checkout repo
         uses: actions/checkout@v3
