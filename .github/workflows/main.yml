@@ -155,13 +155,13 @@ jobs:
       - name: setup gcloud CLI
         uses: google-github-actions/setup-gcloud@v0
         with:
-          project_id: ${{ secrets.GCP_PROJECT }}
+          project_id: ultimate-app-gcp
           service_account_key: ${{ secrets.GCP_CREDENTIALS }}
           export_default_credentials: true
 
       - name: Deploy to App Engine
         run: |
-          gcloud config set project ${{ secrets.GCP_PROJECT }}
+          gcloud config set project ultimate-app-gcp
           gcloud app deploy app.yaml
       - name: Print App URL
         run: |
