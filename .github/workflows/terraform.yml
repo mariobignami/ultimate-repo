@@ -17,7 +17,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout do repositório
+      - name: Repository Checkout
         uses: actions/checkout@v2
 
       - name: Authenticate on GCP

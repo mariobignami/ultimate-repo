@@ -11,6 +11,8 @@ terraform {
     }
   }
 
+  # This block configures the backend for storing Terraform state in Google Cloud Storage (GCS).
+  # The state will be stored in the "devops-bucket-ult" bucket with the prefix "terraform/state".
   backend "gcs" {
     bucket  = "devops-bucket-ult"
     prefix  = "terraform/state"
