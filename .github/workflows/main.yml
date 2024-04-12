@@ -132,11 +132,11 @@ jobs:
     needs: [deploy_to_heroku]
     steps:
       - name: checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
       # Setup gcloud CLI
       - name: setup gcloud CLI
-        uses: google-github-actions/setup-gcloud@v2
+        uses: google-github-actions/setup-gcloud@v0
         with:
           project_id: ${{ secrets.GCP_PROJECT }}
           # this is the json key of the service account created on the project
@@ -147,7 +147,6 @@ jobs:
       - name: Install gke-gcloud-auth-plugin
         run: |
           gcloud components install gke-gcloud-auth-plugin
-
       # Deploy the app using kubernetes (deploy.yml)
       - name: Deploy
         # To run kubectl commands against a cluster created in Cloud Console, 
