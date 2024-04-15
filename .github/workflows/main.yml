@@ -190,7 +190,7 @@ jobs:
       - name: Create Web App
         run: |
           az group create --name myResourceGroup --location "East Us"
-          az appservice plan create --name myAppServicePlan --resource-group myResourceGroup --sku F1 --is-linux
+          az appservice plan create --name myAppServicePlan --resource-group myResourceGroup --sku B1 --is-linux
           az webapp create --resource-group myResourceGroup --plan myAppServicePlan --name ${{ secrets.AZURE_APP_NAME }} --deployment-container-image-name ${{ secrets.DOCKERHUB_USERNAME }}/ultimate-app:prod-version
 
       - name: Deploy to Azure
