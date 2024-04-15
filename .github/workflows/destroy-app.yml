@@ -1,0 +1,47 @@
+name: Delete Deployments
+
+on:
+  workflow_dispatch:
+
+jobs:
+  delete_heroku_app:
+    name: Delete Heroku app
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Heroku CLI
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          usedocker: true
+          key: ${{secrets.HEROKU_API_KEY}}
+
+      - name: Delete Heroku app
+        run: |
+          heroku apps:destroy --app ${{ secrets.HEROKU_APP_NAME }} --confirm ${{ secrets.HEROKU_APP_NAME }}
+
+  delete_gcp_app:
+    name: Delete GCP app
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup gcloud CLI
+        uses: google-github-actions/setup-gcloud@v0.5.0
+        with:
+          project_id: ${{ secrets.GCP_PROJECT }}
+          service_account_key: ${{ secrets.GCP_CREDENTIALS }}
+          export_default_credentials: true
+
+      - name: Delete GCP app
+        run: |
+          gcloud app delete --quiet
+
+  delete_azure_app:
+    name: Delete Azure app
+    runs-on: ubuntu-latest
+    steps:
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Delete Azure app
+        run: |
+          az group delete --name myResourceGroup --yes --no-wait

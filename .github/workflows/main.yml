@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [14.x, 16.x, 20.x]
+        node-version: [20.x]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -105,6 +105,10 @@ jobs:
           # build the app docker image using the Dockerfile
           # and run that image in a container that's pushed to heroku
           usedocker: true
+      - name: Print App URL
+        run: |
+          echo "App URL: https://${{ secrets.HEROKU_APP_NAME }}.herokuapp.com"
+
 
   deploy_to_google_cloud:
     name: Deploy to GCP
@@ -143,29 +147,32 @@ jobs:
           envsubst < deploy.yml | kubectl apply -f -
           kubectl rollout status -w deployment/nodejs-demo-app
           kubectl get all
+      - name: Print App URL
+        run: |
+          echo "App URL: $(kubectl get service nodejs-demo-app-entrypoint -o jsonpath='{.status.loadBalancer.ingress[0].ip}')"
 
-  # deploy_to_app_engine:
-  #   name: Deploy to GCP App Engine
-  #   runs-on: ubuntu-latest
-  #   needs: [push_to_Docker_Hub]
-  #   steps:
-  #     - name: checkout repo
-  #       uses: actions/checkout@v3
+  deploy_to_app_engine:
+    name: Deploy to GCP App Engine
+    runs-on: ubuntu-latest
+    needs: [push_to_Docker_Hub]
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v3
 
-  #     - name: setup gcloud CLI
-  #       uses: google-github-actions/setup-gcloud@v0.5.0
-  #       with:
-  #         project_id: ultimate-app-gcp
-  #         service_account_key: ${{ secrets.GCP_CREDENTIALS }}
-  #         export_default_credentials: true
+      - name: setup gcloud CLI
+        uses: google-github-actions/setup-gcloud@v0.5.0
+        with:
+          project_id: ultimate-app-gcp
+          service_account_key: ${{ secrets.GCP_CREDENTIALS }}
+          export_default_credentials: true
 
-  #     - name: Deploy to App Engine
-  #       run: |
-  #         gcloud config set project ultimate-app-gcp
-  #         gcloud app deploy app.yaml
-  #     - name: Print App URL
-  #       run: |
-  #         echo "App URL: $(gcloud app browse --format='value(url)')"
+      - name: Deploy to App Engine
+        run: |
+          gcloud config set project ultimate-app-gcp
+          gcloud app deploy app.yaml
+      - name: Print App URL
+        run: |
+          echo "App URL: $(gcloud app browse --format='value(url)')"
 
   deploy_to_azure:
     name: Deploy to Azure
@@ -182,10 +189,13 @@ jobs:
 
       - name: Create Web App
         run: |
-          az group create --name myResourceGroup --location "West Europe"
+          az group create --name myResourceGroup --location "East Us"
           az appservice plan create --name myAppServicePlan --resource-group myResourceGroup --sku F1 --is-linux
           az webapp create --resource-group myResourceGroup --plan myAppServicePlan --name ${{ secrets.AZURE_APP_NAME }} --deployment-container-image-name ${{ secrets.DOCKERHUB_USERNAME }}/ultimate-app:prod-version
 
       - name: Deploy to Azure
         run: |
-          az webapp config container set --name ${{ secrets.AZURE_APP_NAME }} --resource-group myResourceGroup --docker-custom-image-name ${{ secrets.DOCKERHUB_USERNAME }}/ultimate-app:prod-version --docker-registry-server-url https://index.docker.io/v1/
+          az webapp config container set --name ${{ secrets.AZURE_APP_NAME }} --resource-group myResourceGroup --docker-custom-image-name ${{ secrets.DOCKERHUB_USERNAME }}/ultimate-app:prod-version --docker-registry-server-url https://index.docker.io/v
+      - name: Print App URL
+        run: |
+          echo "App URL: https://${{ secrets.AZURE_APP_NAME }}.azurewebsites.net"    
