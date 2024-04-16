@@ -20,7 +20,7 @@ jobs:
 
       - name: Stop GCP App Engine
         run: |
-          gcloud app services update default --num-instances=0
+          gcloud app services delete default
 
   delete_gcp_node:
     name: Delete GCP Node
@@ -38,7 +38,7 @@ jobs:
 
       - name: Get GKE credentials
         run: |
-          gcloud container clusters get-credentials ${{ secrets.GCP_CLUSTER_NAME }} --zone ${{ secrets.GCP_ZONE }}
+          gcloud container clusters get-credentials node-demo-k8s --zone us-central1-c
 
       - name: Delete GCP Node
         run: |
