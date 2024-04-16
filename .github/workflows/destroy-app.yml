@@ -29,6 +29,10 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
 
+      - name: Install gke-gcloud-auth-plugin
+        run: |
+          gcloud components install gke-gcloud-auth-plugin
+
       - name: Setup gcloud CLI
         uses: google-github-actions/setup-gcloud@v0.5.0
         with:
