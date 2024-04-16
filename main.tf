@@ -60,7 +60,7 @@ resource "google_container_cluster" "primary" {
 
   timeouts {
     # time out after 45 min if the Kubernetes cluster creation is still not finish
-    create = "10" 
+    create = "10m" 
     update = "20m"
   }
 }
