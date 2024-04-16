@@ -20,7 +20,7 @@ jobs:
 
       - name: Stop GCP App Engine
         run: |
-          gcloud app versions list --format='value(id)' --service=default | xargs gcloud app versions stop --service=default
+          gcloud app services update default --num-instances=0
 
   delete_gcp_node:
     name: Delete GCP Node
@@ -35,6 +35,10 @@ jobs:
           project_id: ${{ secrets.GCP_PROJECT }}
           service_account_key: ${{ secrets.GCP_CREDENTIALS }}
           export_default_credentials: true
+
+      - name: Get GKE credentials
+        run: |
+          gcloud container clusters get-credentials ${{ secrets.GCP_CLUSTER_NAME }} --zone ${{ secrets.GCP_ZONE }}
 
       - name: Delete GCP Node
         run: |
