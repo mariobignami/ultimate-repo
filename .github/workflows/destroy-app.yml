@@ -8,11 +8,14 @@ jobs:
     name: Delete Heroku app
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
       - name: Setup Heroku CLI
         uses: akhileshns/heroku-deploy@v3.12.12
         with:
           usedocker: true
-          key: ${{secrets.HEROKU_API_KEY}}
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
 
       - name: Delete Heroku app
         run: |
@@ -22,6 +25,9 @@ jobs:
     name: Delete GCP app
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
       - name: Setup gcloud CLI
         uses: google-github-actions/setup-gcloud@v0.5.0
         with:
@@ -31,12 +37,15 @@ jobs:
 
       - name: Delete GCP app
         run: |
-          gcloud app delete --quiet
+          gcloud projects delete ${{ secrets.GCP_PROJECT }} --quiet
 
   delete_azure_app:
     name: Delete Azure app
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
       - name: Login to Azure
         uses: azure/login@v1
         with:
