@@ -2,7 +2,7 @@
 
 # Define variables
 RELEASE_NAME="nodejs-demo-app"
-CHART_PATH="./nodejs-demo-chart"
+CHART_PATH="/home/runner/work/ultimate-repo/ultimate-repo/nodejs-demo-chart"
 NAMESPACE="ultimate-app-namespace"
 
 # Check if Helm release exists
