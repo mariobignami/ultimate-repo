@@ -3,7 +3,7 @@
 # Define variables
 RELEASE_NAME="nodejs-demo-app"
 CHART_PATH="./nodejs-demo-chart"
-NAMESPACE="my-namespace"
+NAMESPACE="ultimate-app-namespace"
 
 # Check if Helm release exists
 if helm list -q -n ${NAMESPACE} | grep -q "^${RELEASE_NAME}$"
