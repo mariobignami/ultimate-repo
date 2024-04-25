@@ -119,7 +119,7 @@ jobs:
           kubectl create namespace ultimate-app-namespace
           helm upgrade --install nodejs-demo-app ./nodejs-demo-chart \
           --namespace ultimate-app-namespace \
-          --set image.repository=seu-usuario-dockerhub/ultimate-app,image.tag=prod-version
+          --set image.repository=002631/ultimate-app,image.tag=prod-version
 
   # deploy_to_heroku:
   #   name: Deploy to Heroku
