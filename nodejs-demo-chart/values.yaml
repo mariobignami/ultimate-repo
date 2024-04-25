@@ -1,0 +1,21 @@
+replicaCount: 2
+image:
+  repository: 002631/ultimate-app
+  tag: prod-version
+  pullPolicy: Always
+service:
+  type: LoadBalancer
+  ports:
+    http:
+      port: 80
+      targetPort: 30002
+    https:
+      port: 443
+      targetPort: 30002
+resources:
+  limits:
+    cpu: "250m"
+    memory: "512Mi"
+  requests:
+    cpu: "100m"
+    memory: "256Mi"

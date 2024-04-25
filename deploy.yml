@@ -1,105 +1,18 @@
-# check out all Kubernetes commands here:
-# https://kubernetes.io/docs/reference/kubectl/cheatsheet/
+#!/bin/bash
 
-# -----------------------------------------------------------*
-# implies the use of kubernetes 1.7
-# use apps/v1beta2 for kubernetes 1.8
-# -----------------------------------------------------------*
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: nodejs-demo-app
-  namespace: default
-spec:
-  replicas: 2                     # this is number of pods
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 50% 
-  selector:
-    matchLabels:
-      app: nodejs-demo-app
-  template:
-    metadata:
-      labels:
-        app: nodejs-demo-app
-    spec:
-      # Kubernetes run docker pull pseudo/your-image:latest under the hood
-      # Image field in Kubernetes resources is simply the docker image to run.
-      containers:
-      - name: nodejs-demo-app
-        # pulling image from my DockerHub
-        image: 002631/ultimate-app:prod-version
-        # using if not present works well with images that has tag
-        # if you image is tag:lastest - use Always otherwise you
-        # wouldn't get the fresh version of your image
-        imagePullPolicy: Always
-        # -----------------------------------------------------------*
-        # It is a good practice to declare resource requests and 
-        # limits for both memory and cpu for each container. 
-        # This helps to schedule the container to a node that has 
-        # available resources for your Pod, and also so that your 
-        # Pod does not use resources that other Pods needs
-        # -----------------------------------------------------------*
-        resources:
-          limits:
-            memory: 512Mi
-            cpu: "250m"
-          requests:
-            memory: 256Mi
-            cpu: "100m"
-        # specify the container port
-        ports:
-        - containerPort: 30002
+# Define variables
+RELEASE_NAME="nodejs-demo-app"
+CHART_PATH="./nodejs-demo-chart"
+NAMESPACE="my-namespace"
 
-    # -----------------------------------------------------------*
-    # If your image is hosted in a private docker hub repo, 
-    # you need to specify an image pull secret in the spec field.
-    # -----------------------------------------------------------*
-    # spec:
-    #   containers:
-    #   - name: app
-    #     image: pseudo/your-image:latest
-    #   imagePullSecrets:
-    #   - name: dockerhub-credential
-    # -----------------------------------------------------------*
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: nodejs-demo-app-entrypoint
-  namespace: default
-spec:
-  # -----------------------------------------------------------*
-  # if you're using service type NodePort. To access you app
-  # and test it locally you need to listen on local port.
-  # you can do that by forwarding a local port to Service target 
-  # port with name <my-service-name>
-  # e.g -- 
-  # kubectl port-forward service/nodejs-demo-app-entrypoint 3000:443
-  # -----------------------------------------------------------*
-  # type: NodePort
-  type: LoadBalancer
-  selector:
-    app: nodejs-demo-app
-  # The range of valid ports in kubernetes is 30000-32767
-  ports:
-    # - protocol: TCP
-    #   port: 30002
-    #   targetPort: 30002
-    #   nodePort: 3000
-    # -----------------------------------------------------------*
-    # this block is for when you wanna use the type load balancer
-    # on your local computer or else where
-    # -----------------------------------------------------------*
-    - name: http
-      protocol: TCP
-      port: 80             # this is service port 80
-      targetPort: 30002
-      # nodePort: 30003      # this is for when using type: NodePort
-    - name: https
-      protocol: TCP
-      port: 443            # this is service port 443
-      targetPort: 30002
-      # nodePort: 30004      # this is for when using type: NodePort
+# Check if Helm release exists
+if helm list -q -n ${NAMESPACE} | grep -q "^${RELEASE_NAME}$"
+then
+  # Helm release exists, upgrade
+  echo "Upgrading Helm release ${RELEASE_NAME}..."
+  helm upgrade ${RELEASE_NAME} ${CHART_PATH} -n ${NAMESPACE}
+else
+  # Helm release doesn't exist, install
+  echo "Installing Helm release ${RELEASE_NAME}..."
+  helm install ${RELEASE_NAME} ${CHART_PATH} -n ${NAMESPACE}
+fi
