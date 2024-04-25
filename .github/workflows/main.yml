@@ -112,7 +112,7 @@ jobs:
       
       - name: Get GKE credentials
         run: |
-          gcloud container clusters get-credentials node-demo-k8s --zone us-central1-c --project ${{ secrets.GCP_PROJECT_ID }}
+          gcloud container clusters get-credentials node-demo-k8s --zone us-central1-c --project ${{ secrets.GCP_PROJECT }}
 
       - name: Deploy with Helm
         run: |
