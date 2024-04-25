@@ -103,7 +103,7 @@ jobs:
 
       - name: Get GKE credentials
         run: |
-          gcloud container clusters get-credentials ${{ secrets.GKE_CLUSTER_NAME }} --zone ${{ secrets.GKE_ZONE }} --project ${{ secrets.GCP_PROJECT_ID }}
+          gcloud container clusters get-credentials node-demo-k8s --zone us-central1-c --project ultimate-app-gcp
 
       - name: Install Helm
         run: |
