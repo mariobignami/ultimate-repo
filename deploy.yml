@@ -5,6 +5,9 @@ RELEASE_NAME="nodejs-demo-app"
 CHART_PATH="/home/runner/work/ultimate-repo/ultimate-repo/nodejs-demo-chart"
 NAMESPACE="ultimate-app-namespace"
 
+# Create the namespace if it doesn't exist
+kubectl create namespace ${NAMESPACE} --dry-run=client -o json | kubectl apply -f -
+
 # Check if Helm release exists
 if helm list -q -n ${NAMESPACE} | grep -q "^${RELEASE_NAME}$"
 then

@@ -97,7 +97,7 @@ jobs:
       - name: Set up Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v0.5.0
         with:
-          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          project_id: ${{ secrets.GCP_PROJECT }}
           service_account_key: ${{ secrets.GCP_CREDENTIALS }}
           export_default_credentials: true
 
@@ -112,11 +112,14 @@ jobs:
       
       - name: Get GKE credentials
         run: |
-          gcloud container clusters get-credentials node-demo-k8s --zone us-central1-c --project ultimate-app-gcp
+          gcloud container clusters get-credentials node-demo-k8s --zone us-central1-c --project ${{ secrets.GCP_PROJECT_ID }}
 
       - name: Deploy with Helm
         run: |
-          helm upgrade --install nodejs-demo-app ./nodejs-demo-chart --set image.repository=${{ secrets.DOCKERHUB_USERNAME }}/ultimate-app,image.tag=prod-version  
+          kubectl create namespace ultimate-app-namespace
+          helm upgrade --install nodejs-demo-app ./nodejs-demo-chart \
+          --namespace ultimate-app-namespace \
+          --set image.repository=seu-usuario-dockerhub/ultimate-app,image.tag=prod-version
 
   # deploy_to_heroku:
   #   name: Deploy to Heroku
